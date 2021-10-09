@@ -1,15 +1,27 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
+from models.present_model import PresentModel
 from models.kid_model import KidModel
-import datetime
-from flask import make_response
-import flask
+from utilities import create_response, present_post_parser
+
 
 class Present(Resource):
-    def get(_id):
-        pass
+    def get(self, _id):
+        present = PresentModel.get(_id)
+        if not present:
+            return create_response({"message": "could not find present with that id"}, 404)
+        return create_response(present.to_json(), 200)
     
-    def post(_id):
-        pass
-    
+    def post(self, _id):
+        parser = present_post_parser()
+        data = parser.parse_args()
+        kid = KidModel.get(data["kid_id"])
+        if not kid:
+            return create_response({"message": "No Kid with that ID exists"}, 404)
+        #todo check that every year, only one present per kid exists
+        present_type = data["year"] - kid.birthday.year
+        present = PresentModel(data["kid_id"], present_type, data["year"])
+        present.save()
+        return create_response({"message": "Present created", "present": present.to_json()}, 201)
+        
     def delete(_id):
         pass

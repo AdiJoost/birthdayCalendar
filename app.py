@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_restful import Api
 from db import db
 from resources.kid import Kid
+from resources.present import Present
 
 
 app = Flask(__name__)
@@ -20,6 +21,7 @@ def home():
     
 
 api.add_resource(Kid, '/kid/<string:identifier>')
+api.add_resource(Present, '/present/<int:_id>')
     
 if __name__ == '__main__':
     db.init_app(app)
