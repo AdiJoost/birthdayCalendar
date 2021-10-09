@@ -10,7 +10,7 @@ class Kid(Resource):
         kid = KidModel.get(identifier)
         if not kid:
             return Kid.create_response({"message": "no Kid found in database"}, 404)
-        return Kid.create_response({kid.to_json()}, 200)
+        return Kid.create_response(kid.to_json(), 200)
         
         
     def post(self, identifier):
@@ -22,6 +22,10 @@ class Kid(Resource):
         kid = KidModel.get(data['name'])
         if kid:
             return Kid.create_response({"message": "Name already exists, please choose an other name"}, 400)
+        kid = KidModel(data["name"], date)
+        kid.save()
+        return Kid.create_response({"message": "Kid created",
+                                    "kid": kid.to_json()}, 201)
         
     def delete(self, identifier):
         pass
@@ -30,13 +34,14 @@ class Kid(Resource):
     def post_parser(cls):
         parser = reqparse.RequestParser()
         parser.add_argument("name",
-                            type=int,
+                            type=str,
                             required=True,
                             help="This field cannot be left blank")
         parser.add_argument("birthday",
-                            type=int,
+                            type=str,
                             required=True,
                             help="This field cannot be left blank and is in format yyyy-MM-dd")
+        return parser
         
     @classmethod
     def get_date(cls, string):

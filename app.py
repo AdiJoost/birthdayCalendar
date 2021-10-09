@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_restful import Api
 from db import db
+from resources.kid import Kid
 
 
 app = Flask(__name__)
@@ -17,7 +18,8 @@ def create_table():
 def home():
     return "Hello"
     
-    
+
+api.add_resource(Kid, '/kid/<string:identifier>')
     
 if __name__ == '__main__':
     db.init_app(app)
