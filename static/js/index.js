@@ -180,7 +180,7 @@ function displayPresent(present){
 
 			let kidBirthday = document.createElement("div");
 			kidBirthday.classList.add("kidBirthday");
-			kidBirthday.innerText = present["year"] + "-" + present["kid_birthday"].slice(6);
+			kidBirthday.innerText = present["year"] + "-" + present["kid_birthday"].slice(5);
 			presentBox.appendChild(kidBirthday);
 
 			let typeBox = document.createElement("div");
