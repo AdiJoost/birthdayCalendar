@@ -17,7 +17,7 @@ def create_table():
     
 @app.route('/', methods=['GET'])
 def home():
-    return "Hello"
+    return render_template("index.html")
     
 
 api.add_resource(Kid, '/kid/<string:identifier>')
