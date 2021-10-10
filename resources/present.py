@@ -19,7 +19,7 @@ class Present(Resource):
             return create_response({"message": "No Kid with that ID exists"}, 404)
         #todo check that every year, only one present per kid exists
         present_type = data["year"] - kid.birthday.year
-        present = PresentModel(data["kid_id"], present_type, data["year"])
+        present = PresentModel(data["kid_id"], present_type, data["year"], False)
         present.save()
         return create_response({"message": "Present created", "present": present.to_json()}, 201)
         

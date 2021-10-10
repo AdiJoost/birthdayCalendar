@@ -10,12 +10,14 @@ class PresentModel(db.Model):
     kid = db.relationship('KidModel')
     
     present_type = db.Column(db.Integer)
+    is_done = db.Column(db.Boolean)
     year = db.Column(db.Integer)
     
-    def __init__(self, kid_id, present_type, year):
+    def __init__(self, kid_id, present_type, year, is_done):
         self.kid_id = kid_id
         self.present_type = present_type
         self.year = year
+        self.is_done = is_done
                 
     def to_json(self):
         if (self.kid == None):
@@ -23,6 +25,7 @@ class PresentModel(db.Model):
                 "kid_id": self.kid_id,
                 "present_type": self.present_type,
                 "year": self.year,
+                "is_done": self.is_done,
                 "kid_name": "None, probably should delete this",
                 "kid_birthday": "None, probably should delete this"}
         
@@ -30,6 +33,7 @@ class PresentModel(db.Model):
                 "kid_id": self.kid_id,
                 "present_type": self.present_type,
                 "year": self.year,
+                "is_done": self.is_done,
                 "kid_name": self.kid.name,
                 "kid_birthday": str(self.kid.birthday)}
 

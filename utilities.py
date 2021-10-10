@@ -26,7 +26,8 @@ def create_presents_entries (kid, amount):
     for i in range (amount):
         present = PresentModel(kid._id,
                                i + 1,
-                               kid.birthday.year + 1 + i)
+                               kid.birthday.year + 1 + i,
+                               False)
         present.save()
         
 
