@@ -3,12 +3,12 @@
 1: is_done = false
 2: both
 */
-let presentSearchType = 0;
+let presentSearchType = 2;
 
 window.addEventListener("load", function(){
 	baseUrl = window.location.origin;
 	loadKids();
-	loadPresents();
+	search();
 	setupButton();
 }, false)
 
@@ -17,6 +17,11 @@ function setupButton(){
 	isDoneSwitch.addEventListener("click", function(){
 		switchButton(isDoneSwitch);
 	}, false)
+
+	let searchButton = document.getElementById("search");
+	searchButton.addEventListener("click", function(){
+		search();
+	}, false);
 }
 
 /*to switch the Button for type of Presents loaded*/
@@ -44,6 +49,8 @@ function switchButton(isDoneSwitch){
 		isDoneSwitch.classList.remove("all");
 	}
 }
+
+
 
 
 /*Load Kids*/
@@ -94,6 +101,34 @@ function displayKid(kid){
 		container.appendChild(kidBox);
 }
 
+/*loads specific types of presents*/
+function search(){
+	let container = document.getElementById("allPresents");
+	container.innerText = "";
+	let startDate = document.getElementById("presentsFrom").value
+	let endDate = document.getElementById("presentsTo").value
+	let fullUrl = baseUrl + "/presents"
+	fetch(fullUrl,{
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			"start_date": startDate,
+			"end_date": endDate,
+							})
+	})
+	.then(response => {
+		if (!response.ok){
+			loadingError(response);
+			throw new Error("Server didn't like request");
+		}
+		return response.json();
+		
+	})
+	.then(body => gotPresentBody(body));
+}
+
 /*Load all presents*/
 function loadPresents(){
 	let fullUrl = baseUrl + "/presents"
@@ -111,7 +146,13 @@ function loadPresents(){
 
 function gotPresentBody(body){
 	for (let i in body){
-		displayPresent(body[i]);
+		if (presentSearchType == 2){
+			displayPresent(body[i]);
+		} else if (presentSearchType == 0 && body[i]["is_done"]){
+			displayPresent(body[i]);
+		} else if (presentSearchType == 1 && !body[i]["is_done"]){
+			displayPresent(body[i]);
+		}
 	}
 }
 
