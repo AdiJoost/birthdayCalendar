@@ -6,6 +6,7 @@ secundary: #0caaff;
 tertiary: #0cff62;
 */
 
+/*Navigation and basic properties*/
 html {
 	background-color: #000;
 	color: #0cffdb;
@@ -33,4 +34,42 @@ hr {
 	width: 90%;
 	border: 1rem solid #0067ff;
 	border-radius: 1rem;
+}
+
+
+/*Index*/
+/*Kid Display*/
+
+#allKids {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.kidBox {
+	border: 1rem solid #0cffdb;
+	text-align: center;
+	margin: 0rem 2rem 0 2rem;
+}
+
+.kidName {
+	margin: 1rem 1rem 0 1rem;
+	font-size: 3em;
+}
+
+.kidBirthday {
+	margin: 1rem;
+	font-size: 1em;
+}
+
+.kidButton{
+	margin: 1rem;
+}
+
+.editKidButton {
+	color: #0cffdb;
+	font-size: 2em;
+	text-decoration: none;
+	border: 0.6rem solid #0caaff;
+	padding: 0.2rem;
 }

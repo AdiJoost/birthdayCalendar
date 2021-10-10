@@ -13,7 +13,8 @@ class KidModel(db.Model):
         
     def to_json(self):
         return {self._id : {'name' : self.name,
-                            'birthday': str(self.birthday)}}
+                            'birthday': str(self.birthday),
+                            'id': self._id}}
     
     def save(self):
         db.session.add(self)
