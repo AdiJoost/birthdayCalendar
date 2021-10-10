@@ -1,10 +1,49 @@
-
+/*sets what type of presents should be searched for
+0: is_done = true
+1: is_done = false
+2: both
+*/
+let presentSearchType = 0;
 
 window.addEventListener("load", function(){
 	baseUrl = window.location.origin;
 	loadKids();
 	loadPresents();
+	setupButton();
 }, false)
+
+function setupButton(){
+	let isDoneSwitch = document.getElementById('isDone');
+	isDoneSwitch.addEventListener("click", function(){
+		switchButton(isDoneSwitch);
+	}, false)
+}
+
+/*to switch the Button for type of Presents loaded*/
+function switchButton(isDoneSwitch){
+	/*switch form done to not done*/
+	if (presentSearchType == 0){
+		presentSearchType = 1;
+		isDoneSwitch.innerText = "Nicht Gemacht"
+		isDoneSwitch.classList.remove("all");
+		isDoneSwitch.classList.add("notDone");
+	}
+	/*switch from not done to all*/ 
+	else if (presentSearchType == 1){
+		presentSearchType = 2;
+		isDoneSwitch.innerText = "All"
+		isDoneSwitch.classList.remove("notDone");
+		isDoneSwitch.classList.add("all");
+	}
+
+	/*switch from all to adone*/ 
+	else if (presentSearchType == 2){
+		presentSearchType = 0;
+		isDoneSwitch.innerText = "Gemacht"
+		isDoneSwitch.classList.remove("notDone");
+		isDoneSwitch.classList.remove("all");
+	}
+}
 
 
 /*Load Kids*/
