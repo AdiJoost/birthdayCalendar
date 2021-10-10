@@ -44,6 +44,7 @@ function switchButton(isDoneSwitch){
 		presentSearchType = 1;
 		isDoneSwitch.innerText = "Nicht Gemacht"
 		isDoneSwitch.classList.remove("all");
+		isDoneSwitch.classList.remove("done");
 		isDoneSwitch.classList.add("notDone");
 	}
 	/*switch from not done to all*/ 
@@ -51,6 +52,7 @@ function switchButton(isDoneSwitch){
 		presentSearchType = 2;
 		isDoneSwitch.innerText = "All"
 		isDoneSwitch.classList.remove("notDone");
+		isDoneSwitch.classList.remove("done");
 		isDoneSwitch.classList.add("all");
 	}
 
@@ -60,6 +62,7 @@ function switchButton(isDoneSwitch){
 		isDoneSwitch.innerText = "Gemacht"
 		isDoneSwitch.classList.remove("notDone");
 		isDoneSwitch.classList.remove("all");
+		isDoneSwitch.classList.add("done");
 	}
 }
 
