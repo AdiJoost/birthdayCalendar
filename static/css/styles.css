@@ -117,11 +117,14 @@ hr {
 	cursor: pointer;
 	font-size: 2em;
 	padding:0.4rem;
-	border: 0.6rem solid #0cff62;
+}
+
+#datePicker > #search {
+	border: 0.6rem solid #0caaff;
 }
 
 #datePicker > .done{
-
+	border: 0.6rem solid #0cff62;
 }
 
 #datePicker > .notDone{
