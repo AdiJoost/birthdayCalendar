@@ -21,5 +21,16 @@ html {
 	text-decoration: none;
 	margin: 2rem;
 	font-size: 3em;
-	
+
+}
+
+.isActive {
+	text-decoration: underline;
+}
+
+hr {
+	color: #0caaff;
+	width: 90%;
+	border: 1rem solid #0067ff;
+	border-radius: 1rem;
 }

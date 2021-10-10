@@ -1,1 +1,6 @@
-console.log("hello world");
+
+
+window.addEventListener("load", function(){
+	baseUrl = window.location.origin;
+	
+}, false)

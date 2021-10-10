@@ -31,5 +31,9 @@ class KidModel(db.Model):
         kid = cls.query.filter_by(name=name).first()
         return kid
     
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+    
     
         

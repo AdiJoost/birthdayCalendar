@@ -32,3 +32,11 @@ class Kid(Resource):
     def delete(self, identifier):
         pass
     
+class Kids(Resource):
+    def get(self):
+        kids = KidModel.get_all()
+        return_body = {}
+        for kid in kids:
+            return_body[kid._id] = kid.to_json()
+        return create_response(return_body, 200)
+    
