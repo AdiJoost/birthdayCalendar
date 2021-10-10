@@ -18,7 +18,6 @@ function navSetup(){
 
 function addItem(item, container){
 	let navItem = document.createElement("a");
-	console.log(item);
 	navItem.href = baseUrl + item[1];
 	navItem.innerText = item[0];
 	navItem.classList.add("navItem");
