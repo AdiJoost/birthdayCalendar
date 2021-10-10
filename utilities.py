@@ -10,7 +10,7 @@ def get_date(string):
         year = int(string[0:4])
         month = int(string[5:7])
         day = int(string[8:])
-        date = datetime.datetime(year, month, day)
+        date = datetime.date(year, month, day)
         return date
     except:
         return None
@@ -28,6 +28,8 @@ def create_presents_entries (kid, amount):
                                i + 1,
                                kid.birthday.year + 1 + i)
         present.save()
+        
+
 
 #Below are all methods to create a parser for a specific Request
 def kid_post_parser():
