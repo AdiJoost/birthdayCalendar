@@ -7,10 +7,23 @@ let presentSearchType = 2;
 
 window.addEventListener("load", function(){
 	baseUrl = window.location.origin;
+	setDates();
 	loadKids();
 	search();
 	setupButton();
 }, false)
+
+/*sets DatePicker dates to standart values*/
+function setDates(){
+	let startDateField = document.getElementById('presentsFrom');
+	let endDateField = document.getElementById('presentsTo');
+	let startDate = new Date();
+	startDate.setMonth(startDate.getMonth() - 1);
+	let endDate = new Date();
+	endDate.setMonth(endDate.getMonth() + 2);
+	startDateField.value = startDate.toISOString().slice(0,10);
+	endDateField.value = endDate.toISOString().slice(0,10);
+}
 
 function setupButton(){
 	let isDoneSwitch = document.getElementById('isDone');
