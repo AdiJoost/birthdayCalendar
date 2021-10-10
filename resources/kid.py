@@ -3,7 +3,7 @@ from models.kid_model import KidModel
 import datetime
 from flask import make_response
 import flask
-from utilities import create_response, get_date, kid_post_parser
+from utilities import create_response, get_date, kid_post_parser, create_presents_entries
 
 class Kid(Resource):
     
@@ -25,6 +25,7 @@ class Kid(Resource):
             return create_response({"message": "Name already exists, please choose an other name"}, 400)
         kid = KidModel(data["name"], date)
         kid.save()
+        create_presents_entries(kid, 8)
         return create_response({"message": "Kid created",
                                     "kid": kid.to_json()}, 201)
         

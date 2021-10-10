@@ -1,6 +1,7 @@
 from flask_restful import reqparse
 import datetime
-from flask import make_response, jsonify    
+from flask import make_response, jsonify
+from models.present_model import PresentModel    
 
 
     
@@ -19,6 +20,14 @@ def create_response (body, status):
     response = make_response(jsonify(body), status)
     response.headers.add('Access-Control-Allow-Origin', 'http://127.0.0.1:5000')
     return response
+
+#Takes a kid and creates the given amount of presents-entries for the next years
+def create_presents_entries (kid, amount):
+    for i in range (amount):
+        present = PresentModel(kid._id,
+                               i + 1,
+                               kid.birthday.year + 1 + i)
+        present.save()
 
 #Below are all methods to create a parser for a specific Request
 def kid_post_parser():
