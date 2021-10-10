@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from models.present_model import PresentModel
 from models.kid_model import KidModel
-from utilities import create_response, present_post_parser, presents_post_parser, get_date
+from utilities import create_response, present_post_parser, presents_post_parser, get_date, present_put_parser
 
 
 class Present(Resource):
@@ -23,8 +23,21 @@ class Present(Resource):
         present.save()
         return create_response({"message": "Present created", "present": present.to_json()}, 201)
         
-    def delete(_id):
+    def delete(self, _id):
         pass
+    
+    def put(self, _id):
+        present = PresentModel.get(_id);
+        if not present:
+            return create_response({"message": f"Error. No Present with given ID({_id}) found"}, 400)
+        parser = present_put_parser()
+        data = parser.parse_args()
+        if data["is_done"]:
+            present.is_done = data["is_done"]
+        if data["year"]:
+            present.year = data["year"]
+        present.save()
+        return create_response({"message": "Present updated", "present": present.to_json()}, 200)
     
     
 class Presents(Resource):

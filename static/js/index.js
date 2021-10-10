@@ -114,7 +114,7 @@ function displayPresent(present){
 				let donePanel = document.createElement("div");
 				donePanel.classList.add("donePanel");
 				if (present["is_done"]){
-					donePanel.classList.add("is_done");
+					donePanel.classList.add("isDone");
 				}
 				doneBox.appendChild(donePanel);
 
