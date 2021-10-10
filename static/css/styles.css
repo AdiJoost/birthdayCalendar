@@ -4,9 +4,10 @@ backgournd: #000;
 primary: #0cffdb;
 secundary: #0caaff;
 tertiary: #0cff62;
+not-done: #ff0ca9;
 */
 
-/*Navigation and basic properties*/
+/*--- Navigation and basic properties ---*/
 html {
 	background-color: #000;
 	color: #0cffdb;
@@ -37,7 +38,7 @@ hr {
 }
 
 
-/*Index*/
+/*--- Index ---*/
 /*Kid Display*/
 
 #allKids {
@@ -49,7 +50,7 @@ hr {
 .kidBox {
 	border: 1rem solid #0cffdb;
 	text-align: center;
-	margin: 0rem 2rem 0 2rem;
+	margin: 1rem 2rem 1rem 2rem;
 }
 
 .kidName {
@@ -72,4 +73,28 @@ hr {
 	text-decoration: none;
 	border: 0.6rem solid #0caaff;
 	padding: 0.2rem;
+}
+
+/*Present Display*/
+#allPresents {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.presentBox {
+	border: 1rem solid #0cffdb;
+	text-align: center;
+	margin: 1rem 2rem 1rem 2rem;
+}
+.doneBox{
+	margin-top: 1rem;
+}
+
+.donePanel{
+	border: 1rem solid #ff0ca9;
+}
+
+.isDone{
+	border: 1rem solid #0cff62;
 }

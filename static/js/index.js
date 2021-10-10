@@ -90,6 +90,35 @@ function displayPresent(present){
 			kidBirthday.innerText = present["year"] + "-" + present["kid_birthday"].slice(6);
 			presentBox.appendChild(kidBirthday);
 
+			let typeBox = document.createElement("div");
+			typeBox.classList.add("typeBox");
+				let typeLabel = document.createElement("span");
+				typeLabel.classList.add("label");
+				typeLabel.innerText = "Geschenk-Nummer: ";
+				typeBox.appendChild(typeLabel);
+
+				let typeNumber = document.createElement("span");
+				typeNumber.classList.add("presentType");
+				typeNumber.innerText = present["present_type"];
+				typeBox.appendChild(typeNumber);
+
+			presentBox.appendChild(typeBox);
+
+			let doneBox = document.createElement("div");
+			doneBox.classList.add("doneBox");
+				let doneLabel = document.createElement("span");
+				doneLabel.classList.add("label");
+				doneLabel.innerText = "Gemacht: "
+				doneBox.appendChild(doneLabel);
+
+				let donePanel = document.createElement("div");
+				donePanel.classList.add("donePanel");
+				if (present["is_done"]){
+					donePanel.classList.add("is_done");
+				}
+				doneBox.appendChild(donePanel);
+
+			presentBox.appendChild(doneBox);
 
 
 
