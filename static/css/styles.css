@@ -1,3 +1,25 @@
+/*
+hex-colors:
+backgournd: #000;
+primary: #0cffdb;
+secundary: #0caaff;
+tertiary: #0cff62;
+*/
+
 html {
-	background-color: grey;
+	background-color: #000;
+	color: #0cffdb;
+}
+
+.headNav {
+	display: flex;
+	justify-content: center;
+}
+
+.navItem{
+	color: #0cffdb;
+	text-decoration: none;
+	margin: 2rem;
+	font-size: 3em;
+	
 }
