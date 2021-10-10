@@ -38,7 +38,7 @@ hr {
 }
 
 
-/*--- Index ---*/
+/*--- Index and Controller ---*/
 /*Kid Display*/
 
 #allKids {
@@ -97,4 +97,16 @@ hr {
 
 .isDone{
 	border: 1rem solid #0cff62;
+}
+
+/*Index Dates*/
+#datePicker {
+	display: flex;
+	justify-content: center;
+	margin:1rem;
+}
+
+#datePicker > label {
+	margin: 0rem 1rem 0 1rem;
+	font-size: 2em;
 }
