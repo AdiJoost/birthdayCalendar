@@ -43,4 +43,14 @@ class PresentModel(db.Model):
     @classmethod
     def get (cls, _id):
         return cls.query.filter_by(_id=_id).first();
-        
+    
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+    
+    @classmethod
+    def get_from_date_to_date(cls, start_date, end_date):
+        end_year = end_date.year
+        possible = db.session.query(cls).filter(cls.year < end_year + 1).all()
+        return possible
+                

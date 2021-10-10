@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from models.present_model import PresentModel
 from models.kid_model import KidModel
-from utilities import create_response, present_post_parser
+from utilities import create_response, present_post_parser, presents_post_parser, get_date
 
 
 class Present(Resource):
@@ -25,3 +25,27 @@ class Present(Resource):
         
     def delete(_id):
         pass
+    
+    
+class Presents(Resource):
+    def get(self):
+        presents = PresentModel.get_all()
+        body ={}
+        for present in presents:
+            body[present._id] = present.to_json()
+        return create_response(body, 200)    
+        
+    def post(self):
+        parser = presents_post_parser()
+        data = parser.parse_args()
+        start_date = None
+        end_date = None
+        if data["start_date"]:
+            start_date = get_date(data["start_date"])
+        if data["end_date"]:
+            end_date = get_date(data["end_date"])
+        presents = PresentModel.get_from_date_to_date(start_date, end_date)
+        body ={}
+        for present in presents:
+            body[present._id] = present.to_json()
+        return create_response(body, 200)

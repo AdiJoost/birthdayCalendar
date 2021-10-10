@@ -53,3 +53,11 @@ def present_post_parser():
                         required=True,
                         help="This field cannot be left blank and is in format yyyy-MM-dd")
     return parser
+
+def presents_post_parser():
+    parser = reqparse.RequestParser()
+    parser.add_argument("start_date",
+                        type=str)
+    parser.add_argument("end_date",
+                        type=str)
+    return parser
