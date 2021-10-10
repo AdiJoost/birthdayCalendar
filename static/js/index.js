@@ -2,10 +2,12 @@
 
 window.addEventListener("load", function(){
 	baseUrl = window.location.origin;
-	loadKids()
-	
+	loadKids();
+	loadPresents();
 }, false)
 
+
+/*Load Kids*/
 function loadKids(){
 	let fullUrl = baseUrl + "/kids"
 	fetch(fullUrl)
@@ -17,10 +19,10 @@ function loadKids(){
 		return response.json();
 		
 	})
-	.then(body => gotBody(body));
+	.then(body => gotKidBody(body));
 }
 
-function gotBody(body){
+function gotKidBody(body){
 	for (let i in body){
 		let key = Object.keys(body[i])
 		displayKid(body[i][key]);
@@ -51,4 +53,45 @@ function displayKid(kid){
 			kidBox.appendChild(button);
 
 		container.appendChild(kidBox);
+}
+
+/*Load all presents*/
+function loadPresents(){
+	let fullUrl = baseUrl + "/presents"
+	fetch(fullUrl)
+	.then(response => {
+		if (!response.ok){
+			loadingError(response);
+			throw new Error("Server didn't like request");
+		}
+		return response.json();
+		
+	})
+	.then(body => gotPresentBody(body));
+}
+
+function gotPresentBody(body){
+	for (let i in body){
+		displayPresent(body[i]);
+	}
+}
+
+function displayPresent(present){
+	let container = document.getElementById('allPresents');
+	let presentBox = document.createElement("div");
+	presentBox.classList.add("presentBox");
+			let kidName = document.createElement("div");
+			kidName.classList.add("kidName");
+			kidName.innerText = present["kid_name"];
+			presentBox.appendChild(kidName);
+
+			let kidBirthday = document.createElement("div");
+			kidBirthday.classList.add("kidBirthday");
+			kidBirthday.innerText = present["year"] + "-" + present["kid_birthday"].slice(6);
+			presentBox.appendChild(kidBirthday);
+
+
+
+
+	container.appendChild(presentBox);
 }
