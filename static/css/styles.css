@@ -16,6 +16,7 @@ html {
 .headNav {
 	display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .navItem{
@@ -23,6 +24,8 @@ html {
 	text-decoration: none;
 	margin: 2rem;
 	font-size: 4rem;
+	flex-shrink: 4;
+	flex-grow: 4;
 
 }
 
