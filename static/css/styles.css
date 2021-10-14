@@ -93,6 +93,7 @@ hr {
 
 .donePanel{
 	border: 1rem solid #ff0ca9;
+	cursor: pointer;
 }
 
 .isDone{

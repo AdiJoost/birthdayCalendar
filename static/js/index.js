@@ -160,6 +160,8 @@ function loadPresents(){
 	.then(body => gotPresentBody(body));
 }
 
+/*iterates through all presents in recieved payload and checks,
+whether it should be displayed or not, based on the presentSearchType*/
 function gotPresentBody(body){
 	for (let i in body){
 		if (presentSearchType == 2){
@@ -209,6 +211,9 @@ function displayPresent(present){
 
 				let donePanel = document.createElement("div");
 				donePanel.classList.add("donePanel");
+				donePanel.addEventListener("click", function(){
+					updatePresent(present);
+				})
 				if (present["is_done"]){
 					donePanel.classList.add("isDone");
 				}
@@ -219,4 +224,28 @@ function displayPresent(present){
 
 
 	container.appendChild(presentBox);
+}
+
+function updatePresent(present){
+	console.log(present);
+	console.log(!present["is_done"]);
+	let fullUrl = baseUrl + "/present/" + present["id"];
+	fetch(fullUrl,{
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			"is_done": !present["is_done"]
+							})
+	})
+	.then(response => {
+		console.log(response);
+		if (!response.ok){
+			loadingError(response);
+			throw new Error("Server didn't like request");
+		}
+		return response.json();
+		
+	}).then(body => search());
 }

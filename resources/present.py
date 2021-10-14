@@ -32,7 +32,7 @@ class Present(Resource):
             return create_response({"message": f"Error. No Present with given ID({_id}) found"}, 400)
         parser = present_put_parser()
         data = parser.parse_args()
-        if data["is_done"]:
+        if data["is_done"] != None:
             present.is_done = data["is_done"]
         if data["year"]:
             present.year = data["year"]
