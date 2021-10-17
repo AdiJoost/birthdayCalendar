@@ -23,6 +23,8 @@ function loadKids(){
 }
 
 function gotKidBody(body){
+	let container = document.getElementById('allKids');
+	container.innerText = "";
 	for (let i in body){
 		let key = Object.keys(body[i])
 		displayKid(body[i][key]);
@@ -45,14 +47,99 @@ function displayKid(kid){
 
 			let button = document.createElement("div");
 			button.classList.add("kidButton");
-				let edit = document.createElement("a");
+				let edit = document.createElement("div");
 				edit.classList.add("editKidButton");
-				edit.href = baseUrl + "/editKid/" + kid["id"];
 				edit.innerText = "Edit";
+				button.addEventListener("click", function(){
+					openEditKid(kid, kidBox, button);
+				}, false)
 				button.appendChild(edit);
 			kidBox.appendChild(button);
 
 		container.appendChild(kidBox);
+}
+
+/*adds fields to the kidBox to edit the kid itself*/
+function openEditKid(kid, kidBox, editButton){
+	editButton.style.display = "none";
+	let inputName = document.createElement("input");
+	inputName.classList.add("kidInputName");
+	inputName.type = "text";
+	inputName.value = kid["name"];
+	kidBox.appendChild(inputName);
+
+	let inputBirthday = document.createElement("input");
+	inputBirthday.classList.add("kidInputBirthday");
+	inputBirthday.type = "date";
+	inputBirthday.value = kid["birthday"];
+	kidBox.appendChild(inputBirthday);
+
+	let updateButton = document.createElement("div");
+	updateButton.classList.add("kidButton");
+		let update = document.createElement("div");
+		update.classList.add("editKidButton");
+		update.innerText = "Update";
+		updateButton.appendChild(update);
+	kidBox.appendChild(updateButton);
+
+	let resetButton = document.createElement("div");
+	resetButton.classList.add("kidButton");
+		let reset = document.createElement("div");
+		reset.classList.add("editKidButton");
+		reset.innerText = "Reset";
+		resetButton.appendChild(reset);
+	kidBox.appendChild(resetButton);
+
+	/*resets a open Kid that is editable to its normal display*/
+	resetButton.addEventListener("click", function(){
+			editButton.style.display = "block";
+			kidBox.removeChild(inputName);
+			kidBox.removeChild(inputBirthday);
+			kidBox.removeChild(updateButton);
+			kidBox.removeChild(resetButton);
+	}, false)
+	/*updates the Kid*/
+	updateButton.addEventListener("click", function(){
+			updateKid(kid,
+				inputBirthday.value,
+				inputName.value,
+				editButton,
+				kidBox,
+				[inputName, inputBirthday, resetButton, updateButton]);
+			}, false)
+}
+
+/*Sends a PUT-Method to the API to change name and Birthday of given kid*/
+function updateKid(kid, birthday, name, editButton, kidBox, removeList){
+	let fullUrl = baseUrl + "/kid/" + kid["id"]
+	fetch(fullUrl,{
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			"name": name,
+			"birthday": birthday,
+							})
+	})
+	.then(response => {
+		if (!response.ok){
+			loadingError(response);
+			throw new Error("Server didn't like request");
+		}
+		return response.json();
+		
+	})
+	.then(body => gotEditKidBody(body, editButton, kidBox, removeList));
+}
+
+function gotEditKidBody(body, editButton, kidBox, removeList){
+	alert(body["message"]);
+	editButton.style.display = "block";
+	for (let i in removeList){
+		kidBox.removeChild(removeList[i]);
+	}
+	loadKids();
 }
 
 /*Load all presents*/
