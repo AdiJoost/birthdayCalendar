@@ -78,6 +78,7 @@ hr {
 	text-decoration: none;
 	border: 0.6rem solid #0caaff;
 	padding: 0.2rem;
+	border-radius: 1rem;
 	cursor: pointer;
 }
 
@@ -138,14 +139,17 @@ hr {
 
 #datePicker > #search {
 	border: 0.6rem solid #0caaff;
+	border-radius: 1rem;
 }
 
 #datePicker > .done{
 	border: 0.6rem solid #0cff62;
+	border-radius: 1rem;
 }
 
 #datePicker > .notDone{
 	border: 0.6rem solid #ff0ca9;
+	border-radius: 1rem;
 }
 
 #datePicker > .all{
@@ -153,5 +157,19 @@ hr {
 	border-bottom: 0.6rem solid #ff0ca9;
 	border-left: 0.6rem solid #0cff62;
 	border-top: 0.6rem solid #0cff62;
+	border-radius: 1rem;
 }
 
+/*add Kid*/
+
+#addKidContainer{
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	font-size: 3rem;
+	align-items: center;
+}
+
+.textInput {
+	font-size: 2rem;
+}
