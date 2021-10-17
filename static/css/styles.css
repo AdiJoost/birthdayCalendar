@@ -54,6 +54,8 @@ hr {
 	border: 1rem solid #0cffdb;
 	text-align: center;
 	margin: 1rem 2rem 1rem 2rem;
+	display: flex;
+	flex-direction: column;
 }
 
 .kidName {
@@ -76,6 +78,17 @@ hr {
 	text-decoration: none;
 	border: 0.6rem solid #0caaff;
 	padding: 0.2rem;
+	cursor: pointer;
+}
+
+/*Display editables in kid*/
+#kidInputName {
+	margin: 0.5rem;
+	padding: 0.5rem;
+}
+#kidInputBirthday {
+	margin: 0.5rem;
+	padding: 0.5rem;
 }
 
 /*Present Display*/
