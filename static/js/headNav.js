@@ -9,7 +9,6 @@ function navSetup(){
 	let container = document.getElementById('headNav');
 	let navItems = [["Startseite", "/"],
 					["Kind hinzufügen", "/addKid"],
-					["Kind bearbeiten", "/editKid"],
 					["Controller", "/controller"]]
 	for (let i in navItems){
 		addItem(navItems[i], container);
