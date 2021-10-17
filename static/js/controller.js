@@ -158,6 +158,8 @@ function loadPresents(){
 }
 
 function gotPresentBody(body){
+	let container = document.getElementById('allPresents');
+	container.innerText = "";
 	for (let i in body){
 		displayPresent(body[i]);
 	}
@@ -174,7 +176,7 @@ function displayPresent(present){
 
 			let kidBirthday = document.createElement("div");
 			kidBirthday.classList.add("kidBirthday");
-			kidBirthday.innerText = present["year"] + "-" + present["kid_birthday"].slice(6);
+			kidBirthday.innerText = present["year"] + "-" + present["kid_birthday"].slice(5);
 			presentBox.appendChild(kidBirthday);
 
 			let typeBox = document.createElement("div");
@@ -200,6 +202,9 @@ function displayPresent(present){
 
 				let donePanel = document.createElement("div");
 				donePanel.classList.add("donePanel");
+				donePanel.addEventListener("click", function(){
+					updatePresent(present);
+				})
 				if (present["is_done"]){
 					donePanel.classList.add("isDone");
 				}
@@ -210,4 +215,28 @@ function displayPresent(present){
 
 
 	container.appendChild(presentBox);
+}
+
+function updatePresent(present){
+	console.log(present);
+	console.log(!present["is_done"]);
+	let fullUrl = baseUrl + "/present/" + present["id"];
+	fetch(fullUrl,{
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			"is_done": !present["is_done"]
+							})
+	})
+	.then(response => {
+		console.log(response);
+		if (!response.ok){
+			loadingError(response);
+			throw new Error("Server didn't like request");
+		}
+		return response.json();
+		
+	}).then(body => loadPresents());
 }
