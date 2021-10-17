@@ -172,4 +172,14 @@ hr {
 
 .textInput {
 	font-size: 2rem;
+	margin:1rem;
+}
+
+.addKidButton{
+	font-size: 2rem;
+}
+
+
+.textForAddKidButton{
+	padding: 0.5rem;
 }
