@@ -1,8 +1,5 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 from models.kid_model import KidModel
-import datetime
-from flask import make_response
-import flask
 from utilities import create_response, get_date, kid_post_parser, create_presents_entries
 
 class Kid(Resource):
@@ -30,6 +27,9 @@ class Kid(Resource):
                                     "kid": kid.to_json()}, 201)
         
     def delete(self, identifier):
+        pass
+    
+    def put(self, identifier):
         pass
     
     
