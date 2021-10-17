@@ -140,7 +140,7 @@ function openEditKid(kid, kidBox, editButton){
 		update.classList.add("editKidButton");
 		update.innerText = "Update";
 		updateButton.addEventListener("click", function(){
-			updateKid();
+			updateKid(kid, inputBirthday.value, inputName.value);
 			}, false)
 		updateButton.appendChild(update);
 	kidBox.appendChild(updateButton);
@@ -153,6 +153,7 @@ function openEditKid(kid, kidBox, editButton){
 		resetButton.appendChild(reset);
 	kidBox.appendChild(resetButton);
 
+	/*resets a open Kid that is editable to its normal display*/
 	resetButton.addEventListener("click", function(){
 			editButton.style.display = "block";
 			kidBox.removeChild(inputName);
@@ -163,13 +164,30 @@ function openEditKid(kid, kidBox, editButton){
 }
 
 /*Sends a PUT-Method to the API to change name and Birthday of given kid*/
-function updateKid(){
-
+function updateKid(kid, birthday, name){
+	let fullUrl = baseUrl + "/kjd/" + kid["id"]
+	fetch(fullUrl,{
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			"name": name,
+			"birthday": birthday,
+							})
+	})
+	.then(response => {
+		if (!response.ok){
+			loadingError(response);
+			throw new Error("Server didn't like request");
+		}
+		return response.json();
+		
+	})
+	.then(body => got EditKidBody(body));
 }
-/*resets a open Kid that is editable to its normal display*/
-function resetKid(){
 
-}
+
 
 /*loads specific types of presents*/
 function search(){
