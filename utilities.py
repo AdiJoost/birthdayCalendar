@@ -1,7 +1,8 @@
 from flask_restful import reqparse
 import datetime
 from flask import make_response, jsonify
-from models.present_model import PresentModel    
+from models.present_model import PresentModel
+from models.kid_model import KidModel    
 
 
     
@@ -30,6 +31,15 @@ def create_presents_entries (kid, amount):
                                False)
         present.save()
         
+#checks, if a kid with given name but different id already exist in db 
+def check_double(identifier, name):
+    kid = KidModel.get(name)
+    if not kid:
+        return False
+    if kid._id == identifier:
+        return False
+    return True
+        
 
 
 #Below are all methods to create a parser for a specific Request
@@ -43,6 +53,14 @@ def kid_post_parser():
                         type=str,
                         required=True,
                         help="This field cannot be left blank and is in format yyyy-MM-dd")
+    return parser
+
+def kid_put_parser():
+    parser = reqparse.RequestParser()
+    parser.add_argument("name",
+                        type=str)
+    parser.add_argument("birthday",
+                        type=str)
     return parser
         
 def present_post_parser():

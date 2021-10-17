@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from models.kid_model import KidModel
-from utilities import create_response, get_date, kid_post_parser, create_presents_entries
+from utilities import create_response, get_date, kid_post_parser, create_presents_entries, kid_put_parser, check_double
 
 class Kid(Resource):
     
@@ -30,7 +30,20 @@ class Kid(Resource):
         pass
     
     def put(self, identifier):
-        pass
+        kid = KidModel.get(identifier)
+        if not kid:
+            return create_response ({"message" : f"Could not find Kid with identifier: {identifier}"}, 404)
+        parser = kid_put_parser()
+        data = parser.parse_args()
+        if (data["name"] != None and data["name"] != "" and check_double(identifier, data["name"]) == False):
+            kid.name = data["name"]
+        birthday = get_date(data["birthday"])
+        if birthday:
+            kid.birthday = birthday
+        
+        kid.save()
+        return create_response({"message": "Kid edited"}, 200)
+            
     
     
     
