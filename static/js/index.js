@@ -85,6 +85,8 @@ function loadKids(){
 }
 
 function gotKidBody(body){
+	let container = document.getElementById('allKids');
+	container.innerText = "";
 	for (let i in body){
 		let key = Object.keys(body[i])
 		displayKid(body[i][key]);
@@ -139,9 +141,6 @@ function openEditKid(kid, kidBox, editButton){
 		let update = document.createElement("div");
 		update.classList.add("editKidButton");
 		update.innerText = "Update";
-		updateButton.addEventListener("click", function(){
-			updateKid(kid, inputBirthday.value, inputName.value);
-			}, false)
 		updateButton.appendChild(update);
 	kidBox.appendChild(updateButton);
 
@@ -161,11 +160,20 @@ function openEditKid(kid, kidBox, editButton){
 			kidBox.removeChild(updateButton);
 			kidBox.removeChild(resetButton);
 	}, false)
+	/*updates the Kid*/
+	updateButton.addEventListener("click", function(){
+			updateKid(kid,
+				inputBirthday.value,
+				inputName.value,
+				editButton,
+				kidBox,
+				[inputName, inputBirthday, resetButton, updateButton]);
+			}, false)
 }
 
 /*Sends a PUT-Method to the API to change name and Birthday of given kid*/
-function updateKid(kid, birthday, name){
-	let fullUrl = baseUrl + "/kjd/" + kid["id"]
+function updateKid(kid, birthday, name, editButton, kidBox, removeList){
+	let fullUrl = baseUrl + "/kid/" + kid["id"]
 	fetch(fullUrl,{
 		method: "PUT",
 		headers: {
@@ -184,7 +192,16 @@ function updateKid(kid, birthday, name){
 		return response.json();
 		
 	})
-	.then(body => got EditKidBody(body));
+	.then(body => gotEditKidBody(body, editButton, kidBox, removeList));
+}
+
+function gotEditKidBody(body, editButton, kidBox, removeList){
+	alert(body["message"]);
+	editButton.style.display = "block";
+	for (let i in removeList){
+		kidBox.removeChild(removeList[i]);
+	}
+	loadKids();
 }
 
 
